@@ -1,0 +1,84 @@
+{
+  "parserOptions": {
+    "project": true,
+    "tsconfigRootDir": ".",
+    "sourceType": "module",
+    "ecmaVersion": 2020,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "env": { "es6": true },
+  "plugins": [
+    "simple-import-sort",
+    "react",
+    "import",
+    "@typescript-eslint",
+    "jsx-a11y"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/stylistic",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "rules": {
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
+    "import/no-unresolved": "error",
+    "@typescript-eslint/no-unnecessary-type-assertion": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn"
+  },
+  "overrides": [
+    // override "simple-import-sort" config
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "warn",
+          {
+            "groups": [
+              // Packages `react` related packages come first.
+              ["^react", "^@?\\w"],
+              // Internal packages.
+              ["^(@pages)(/.*|$)"],
+              ["^(@layouts)(/.*|$)"],
+              ["^(@components)(/.*|$)"],
+              ["^(@utils)(/.*|$)"],
+              ["^(@constants)(/.*|$)"],
+              ["^(@data)(/.*|$)"],
+              ["^(@hooks)(/.*|$)"],
+              ["^(@customTypes)(/.*|$)"],
+              ["^(@styles)(/.*|$)"],
+              ["^(@assets)(/.*|$)"],
+              // Side effect imports.
+              ["^\\u0000"],
+              // Parent imports. Put `..` last.
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Other relative imports. Put same-folder imports and `.` last.
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // Style imports.
+              ["/(css)/?\\w+$", "^.+\\.?(css)$", "^.+\\.?(styled).ts$"]
+            ]
+          }
+        ],
+        "import/newline-after-import": ["warn", { "count": 2 }] // using "warn" and not "error" because prettier annoyingly removes the second blank line
+      }
+    }
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": true,
+      "node": true,
+      "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+    },
+    "react": {
+      "version": "detect"
+    }
+  }
+}
