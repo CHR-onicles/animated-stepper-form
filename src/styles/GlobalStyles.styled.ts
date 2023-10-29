@@ -1,6 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
-import { rem, size } from "./Utilities.styled";
+import { bp, media, rem, size } from "./Utilities.styled";
+
+import "@radix-ui/colors/mauve.css";
+import "@radix-ui/colors/violet.css";
+import "@radix-ui/colors/blue.css";
+import "@radix-ui/colors/green.css";
+import "@radix-ui/colors/orange.css";
+import "@radix-ui/colors/pink.css";
+import "@radix-ui/colors/brown.css";
+import "@radix-ui/colors/black-alpha.css";
 
 
 export const GlobalStyles = createGlobalStyle`
@@ -12,24 +21,29 @@ export const GlobalStyles = createGlobalStyle`
         -moz-osx-font-smoothing: grayscale;
         -webkit-text-size-adjust: 100%;
 
-        // CSS variables here ----------------------------------------
+        // CSS variables ----------------------------------------
+        --clr-primary-100: hsl(253, 100%, 61%, 0.1);
+        --clr-primary-200: hsl(253, 100%, 61%, 0.3);
+        --clr-primary-400: 	hsl(253, 100%, 61%);
+        --clr-primary-700: 	hsl(242, 98%, 16%);
 
-        --clr-primary-400: 0;
+        --clr-accent: hsl(180, 96%, 41%);
+        --clr-rose: hsl(335, 95%, 45%);
+        --clr-yellow: hsl(44, 100%, 48%);
 
         --clr-white: hsl(0, 0%, 100%);
         --clr-black: hsl(0, 0%, 0%);
-        --clr-gray-100: hsl(0, 0%, 97%);
-        --clr-gray-200: hsl(0, 0%, 87%);
-        --clr-gray-300: hsl(0, 0%, 77%);
-        --clr-gray-400: hsl(0, 0%, 67%);
-        --clr-gray-500: hsl(0, 0%, 57%);
-        --clr-gray-600: hsl(0, 0%, 47%);
-        --clr-gray-700: hsl(0, 0%, 37%);
-        --clr-gray-800: hsl(0, 0%, 27%);
-        --clr-gray-900: hsl(0, 0%, 17%);
+
+        --clr-gray-100: hsl(200, 20%, 97%);
+        --clr-gray-150: hsl(0, 0%, 89%);
+        --clr-gray-175: hsl(0, 0%, 85%);
+        --clr-gray-200: hsl(0, 0%, 80%);
+        --clr-gray-300: hsl(0, 0%, 70%);
+        --clr-gray-400: hsl(0, 0%, 50%);
+        --clr-gray-500: hsl(0, 0%, 40%);
+        --clr-gray-700: hsl(0, 0%, 12%);
 
         --font-primary: "Poppins", sans-serif;
-        --font-secondary: serif;
 
         --ease-slow-start: cubic-bezier(0.52, 0.01, 0, 1);
         --ease-quick-start-and-end: cubic-bezier(0.19, 1, 0.22, 1);
@@ -38,10 +52,21 @@ export const GlobalStyles = createGlobalStyle`
 
         --border-radius-1: 3px;
         --border-radius-2: 5px;
-        --border-radius-3: 10px;
+        --border-radius-3: 7px;
+        --border-radius-4: 10px;
+        --border-radius-5: 15px;
 
-        // APP-SPECIFIC CSS variables here ----------------------------------------
-        
+
+        // APP-SPECIFIC CSS variables ----------------------------------------
+        --footer-height: ${rem(42)};
+        --sidebar-collapsed-width: ${rem(70)};
+        --sidebar-full-width: ${rem(230)};
+        --sidebar-width: var(--sidebar-collapsed-width);
+        --patient-navbar-height: ${rem(114)};
+
+        ${media(bp.large1)}{
+            --sidebar-width: var(--sidebar-full-width);
+        }
     }
 
     *, ::before, ::after {
@@ -51,14 +76,14 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     html {
-        /* scroll-behavior: smooth; */ // for faster scroll to top during page transitions
+        scroll-behavior: smooth; // for faster scroll to top during page transitions
         /* height: 100%; */ // Lenis needs this to be auto
     }
 
     body {
         min-height: 100%;
-        background-color: var(--clr-white);
-        /* background: color-mix(in srgb, var(--clr-gray-900) 50%, transparent); */
+        color: var(--clr-primary-700);
+        background-color: var(--clr-gray-100);
         font-family: var(--font-primary);
         font-size: ${rem(16)};
         line-height: 1.5;
@@ -98,10 +123,46 @@ export const GlobalStyles = createGlobalStyle`
         font-family: inherit;
     }
 
+    label {
+        font-size: ${rem(14)};
+        font-weight: 500;
+        /* line-height: 1.1; */
+        margin-bottom: 0.3rem;
+
+        sup {
+            color: red;
+        }
+    }
+    
+    input,
+    textarea {
+        width: 100%;
+        padding: 0.7em 1em;
+        color: inherit;
+        border-radius: var(--border-radius-2);
+        border: 1px solid var(--clr-gray-300);
+        outline: none;
+
+        
+        &:read-only {
+            background-color: var(--clr-gray-100);
+            border: 1px solid var(--clr-gray-150);
+            color: var(--clr-gray-400);
+        }
+
+        &:focus:not(:read-only) {
+            box-shadow: inset 0 0 0 1px var(--clr-primary-400);
+            border-color: rgb(0,0,0,0);
+        }
+    }
+
+    textarea {
+        resize: none;
+    }
+
     button {
         cursor: pointer;
         background: none;
-        white-space: nowrap;
     }
 
    //  Correct the inability to style clickable types in iOS and Safari.
