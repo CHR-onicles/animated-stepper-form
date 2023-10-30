@@ -13,7 +13,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@radix-ui/colors": "^2.1.0",
+    "@radix-ui/colors": "^3.0.0",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-radio-group": "^1.1.3",
     "@radix-ui/react-scroll-area": "^1.0.4",
