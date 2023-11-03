@@ -1,8 +1,7 @@
 /* eslint-disable import/no-duplicates */
-import DatePicker, { registerLocale } from "react-datepicker";
+import DatePicker from "react-datepicker";
 import { BsCalendar } from "react-icons/bs";
 import { setHours, setMinutes } from "date-fns";
-import { enGB } from "date-fns/locale";
 
 import { StyledCustomDatePicker } from "./CustomDatePicker.styled";
 
@@ -49,7 +48,6 @@ export const CustomDatePicker = ({
       $isFullWidth={isFullWidth}>
       {isInline ? null : <BsCalendar className="calendar-icon" />}
       <DatePicker
-        locale={enGB}
         required={required}
         selected={startDate}
         onChange={date => {
