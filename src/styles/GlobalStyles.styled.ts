@@ -2,6 +2,8 @@ import { createGlobalStyle } from "styled-components";
 
 import { rem, size } from "./Utilities.styled";
 
+import "@radix-ui/colors/green.css";
+
 
 export const GlobalStyles = createGlobalStyle`
 
