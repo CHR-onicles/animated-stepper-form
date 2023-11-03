@@ -189,25 +189,6 @@ export const StyledHome = styled.section`
         color: var(--clr-primary-400);
       }
 
-      .heading-container {
-        line-height: 1.2;
-
-        .heading {
-          font-size: ${rem(24)};
-          font-weight: 600;
-
-          span {
-            text-transform: capitalize;
-          }
-        }
-
-        .sub-heading {
-          font-size: ${rem(13)};
-          color: var(--clr-gray-400);
-          margin-top: 0.25rem;
-        }
-      }
-
       &-group {
         ${flexColumn}
         gap: 1.5rem;
