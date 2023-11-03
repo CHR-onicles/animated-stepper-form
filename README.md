@@ -1,6 +1,6 @@
 # Animated Stepper Form
 
-Experimenting with an animated carousel built with a carousel library.
+Experimenting with an animated stepper form and a carousel.
 
 &nbsp;
 
