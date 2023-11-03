@@ -21,6 +21,7 @@ interface CustomDatePickerProps {
   placeholder?: string;
   minDate?: Date;
   showYearDropdown?: boolean;
+  required?: boolean;
 }
 
 export const CustomDatePicker = ({
@@ -35,6 +36,7 @@ export const CustomDatePicker = ({
   placeholder,
   minDate = new Date(1900, 0, 1),
   showYearDropdown = false,
+  required = false,
 }: CustomDatePickerProps) => {
   // console.log("[From Date picker]", startDate);
 
@@ -48,6 +50,7 @@ export const CustomDatePicker = ({
       {isInline ? null : <BsCalendar className="calendar-icon" />}
       <DatePicker
         locale={enGB}
+        required={required}
         selected={startDate}
         onChange={date => {
           setStartDate(date!);

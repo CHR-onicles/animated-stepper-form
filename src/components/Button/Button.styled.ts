@@ -6,7 +6,7 @@ import { rem } from "@styles/Utilities.styled";
 export const StyledPrimaryButton = styled.button`
   padding: 0.5em 1.5em;
   color: var(--clr-white);
-  background-color: var(--clr-accent);
+  background-color: var(--clr-primary-400);
   font-size: ${rem(15)};
   font-weight: 500;
   border-radius: var(--border-radius-3);
@@ -14,7 +14,11 @@ export const StyledPrimaryButton = styled.button`
 
   &:hover:not(:disabled),
   &:focus:not(:disabled) {
-    background-color: hsl(180, 96%, 35%);
+    background-color: color-mix(
+      in srgb,
+      var(--clr-primary-400) 80%,
+      rgb(255, 255, 255)
+    );
   }
 
   &:disabled {

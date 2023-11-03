@@ -1,3 +1,7 @@
 # Animated Stepper Form
 
-An animated stepper form built with React + TS
+Experimenting with an animated carousel built with a carousel library.
+
+&nbsp;
+
+![Animated form](assets/animated-form.png)

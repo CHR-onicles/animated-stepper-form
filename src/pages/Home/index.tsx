@@ -1,54 +1,262 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import AliceCarousel from "react-alice-carousel";
 import { BsCheckLg } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { useUpdate } from "react-use";
 
 import { PrimaryButton } from "@components/Button";
 import { CustomDatePicker } from "@components/CustomDatePicker";
-import { Dropdown } from "@components/Dropdown";
 
-import { paraclinicSteps } from "@data/generalConsultation";
+import { steps } from "@data/stepper";
 
-import LogoFull from "@assets/misc/logo-procrea.png";
+import Logo from "@assets/misc/logo.png";
 
 import { StyledHome } from "./Home.styled";
 
+import "react-alice-carousel/lib/alice-carousel.css";
 
-const TOTAL_PARACLINIC_STEPS = paraclinicSteps.length;
+
+const responsive = {
+  0: { items: 1 },
+};
+
+const TOTAL_STEPS = steps.length;
 
 export const Home = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [paraclinicStep, setParaclinicStep] = useState(1);
+  const [dob, setDob] = useState<Date>();
+  const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({} as any);
+  const carouselRef = useRef<AliceCarousel>(null);
+  const randomUpdate = useUpdate();
 
-  const handleParaclinicFormSubmit = (e: React.FormEvent) => {
+  const handleOnChange = (e: React.FormEvent) => {
+    const target = e.target as HTMLInputElement;
+    setFormData({ ...formData, [target.name]: target.value });
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (paraclinicStep < TOTAL_PARACLINIC_STEPS) {
-      setParaclinicStep(paraclinicStep + 1);
-    } else if (paraclinicStep === TOTAL_PARACLINIC_STEPS) {
-      console.log("submit form");
+    if (step < TOTAL_STEPS) {
+      setStep(step + 1);
+      if (carouselRef.current) carouselRef.current?.slideNext();
+    } else if (step === TOTAL_STEPS) {
+      carouselRef.current?.slideTo(0);
+      setFormData({});
+      setStep(1);
+      alert("Form submitted!");
+
+      //* Need to do this because Alice carousel wont move
+      //* to the intended slide SMH!
+      // window.location.reload();
     }
   };
+
+  const items = [
+    <form className="form" onSubmit={handleFormSubmit} key={1}>
+      <div className="form-step">
+        <p className="form-step-counter">Step 1</p>
+        <div className="form-group">
+          <div className="form-field">
+            <label htmlFor="fullName">
+              Full name <sup>*</sup>
+            </label>
+            <input
+              type="text"
+              placeholder="Eg: Dwight K. Schrute"
+              required
+              name="fullName"
+              id="fullName"
+              value={formData.fullName ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="dob">
+              Date of birth<sup>*</sup>
+            </label>
+            <CustomDatePicker
+              id="dob"
+              startDate={dob ?? undefined}
+              setStartDate={setDob}
+              placeholder="Select a date"
+              showYearDropdown
+              required
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="email">
+              Email<sup>*</sup>
+            </label>
+            <input
+              type="email"
+              placeholder="Eg: dwightkschrute@gmail.com"
+              id="email"
+              name="email"
+              value={formData.email ?? ""}
+              onChange={handleOnChange}
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div className="form-footer">
+        <PrimaryButton>Next</PrimaryButton>
+      </div>
+    </form>,
+    <form className="form" onSubmit={handleFormSubmit} key={2}>
+      <div className="form-step">
+        <p className="form-step-counter">Step 2</p>
+        <div className="form-group">
+          <div className="form-field-wrapper">
+            <label htmlFor="country">Country</label>
+            <input
+              type="text"
+              placeholder="Eg: Germany"
+              id="country"
+              name="country"
+              value={formData.country ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="state">State/Province</label>
+            <input
+              type="text"
+              placeholder="Eg: Bayern"
+              id="state"
+              name="state"
+              value={formData.state ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="city">City</label>
+            <input
+              type="text"
+              placeholder="Eg: Munich"
+              id="city"
+              name="city"
+              value={formData.city ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="postal">Postal Code</label>
+            <input
+              type="text"
+              placeholder="Eg: 80331"
+              id="postal"
+              name="postal"
+              value={formData.postal ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="form-footer">
+        <button
+          type="button"
+          onClick={() => {
+            carouselRef?.current?.slidePrev();
+            setStep(step - 1);
+          }}>
+          Previous
+        </button>
+        <PrimaryButton>Next</PrimaryButton>
+      </div>
+    </form>,
+    <form className="form" onSubmit={handleFormSubmit} key={3}>
+      <div className="form-step">
+        <p className="form-step-counter">Step 3</p>
+        <div className="form-group">
+          <div className="form-field">
+            <label htmlFor="occupation">Occupation</label>
+            <input
+              type="text"
+              placeholder="Eg: Salesman"
+              id="occupation"
+              name="occupation"
+              value={formData.occupation ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="company">Company name</label>
+            <input
+              type="text"
+              placeholder="Eg: Dunder Mifflin"
+              id="company"
+              name="company"
+              value={formData.company ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+
+          <div className="form-field">
+            <label htmlFor="industry">Industry</label>
+            <input
+              type="text"
+              placeholder="Eg: Paper"
+              id="industry"
+              name="industry"
+              value={formData.industry ?? ""}
+              onChange={handleOnChange}
+            />
+          </div>
+        </div>
+      </div>
+      <div className="form-footer">
+        <button
+          type="button"
+          onClick={() => {
+            carouselRef.current?.slidePrev();
+            setStep(step - 1);
+          }}>
+          Previous
+        </button>
+        <PrimaryButton>Submit</PrimaryButton>
+      </div>
+    </form>,
+  ];
+
+  useEffect(() => {
+    if (dob) {
+      setFormData({ ...formData, dob });
+    }
+  }, [dob]);
+
+  useEffect(() => {
+    console.log("[Form data]:", formData);
+  }, [formData]);
+
+  useEffect(() => {
+    //* This is needed to trigger a re-render for alice carousel to animate
+    //* the first slide
+    randomUpdate();
+  }, []);
 
   return (
     <StyledHome>
       <div className="content">
         <div className="left-section">
-          <Link to="#" className="logo">
-            <img src={LogoFull} alt="" />
-          </Link>
+          <div className="logo">
+            <img src={Logo} alt="" />
+          </div>
 
           <ul className="stepper">
-            {paraclinicSteps.map(({ title, position }) => (
+            {steps.map(({ title, position }) => (
               <li
                 key={position}
-                className={`stepper-item ${
-                  paraclinicStep === position ? "active" : ""
-                } ${paraclinicStep > position ? "completed" : ""}`}>
+                className={`stepper-item ${step === position ? "active" : ""} ${
+                  step > position ? "completed" : ""
+                }`}>
                 <div className="icon-wrapper">
-                  {paraclinicStep <= position ? (
-                    <span>{position}</span>
-                  ) : (
-                    <BsCheckLg />
-                  )}
+                  {step <= position ? <span>{position}</span> : <BsCheckLg />}
                 </div>
                 <span>{title}</span>
               </li>
@@ -57,131 +265,15 @@ export const Home = () => {
         </div>
 
         <div className="right-section">
-          <form className="form" onSubmit={handleParaclinicFormSubmit}>
-            {paraclinicStep === 1 ? (
-              <div className="form-step">
-                <div className="form-group">
-                  <div className="form-field-wrapper">
-                    <label htmlFor="location">Location</label>
-                    <Dropdown
-                      id="location"
-                      ariaLabel="Location"
-                      placeholder="Select a location"
-                      items={["Becedi CI", "Abidjan", "Kwale KE", "Wale CI"]}
-                    />
-                  </div>
-                  <div className="form-field-wrapper">
-                    <label htmlFor="date">Date</label>
-                    <CustomDatePicker
-                      id="date"
-                      startDate={startDate}
-                      setStartDate={setStartDate}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <div className="form-field-wrapper">
-                    <label htmlFor="service">Service</label>
-                    <Dropdown
-                      id="service"
-                      ariaLabel="Service"
-                      placeholder="Select a service "
-                      items={["Service 1", "Service 2", "Service 3"]}
-                    />
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {paraclinicStep === 2 ? (
-              <div className="form-step">
-                <div className="form-group">
-                  <div className="form-field-wrapper">
-                    <label htmlFor="blood-type">Blood type</label>
-                    <Dropdown
-                      id="blood-type"
-                      ariaLabel="Blood type"
-                      placeholder="Select a blood type"
-                      items={["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"]}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <div className="form-field">
-                    <label htmlFor="height">Height (cm)</label>
-                    <input type="text" placeholder="Eg: 273" id="height" />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor="weight">Weight (kg)</label>
-                    <input type="text" placeholder="Eg: 50" id="weight" />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor="bmi">
-                      BMI (m/kg<sup className="no-color">2</sup>)
-                    </label>
-                    <input type="text" value={6.7} readOnly id="bmi" />
-                  </div>
-                </div>
-              </div>
-            ) : null}
-
-            {paraclinicStep === 3 ? (
-              <div className="form-step">
-                <div className="form-group">
-                  <div className="form-field">
-                    <label htmlFor="occupation">Occupation</label>
-                    <input
-                      type="text"
-                      placeholder="Eg: Software Engineer"
-                      id="occupation"
-                    />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor="alcohol">Alcohol consumption</label>
-                    <input
-                      type="text"
-                      placeholder="Eg: 3 units/week"
-                      id="alcohol"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group">
-                  <div className="form-field">
-                    <label htmlFor="diet">Diet</label>
-                    <input type="text" id="diet" />
-                  </div>
-                  <div className="form-field">
-                    <label htmlFor="exercise">Exercising Frequency</label>
-                    <input type="text" id="exercise" />
-                  </div>
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="smoking">Smoking habits</label>
-                  <textarea rows={5} id="smoking"></textarea>
-                </div>
-              </div>
-            ) : null}
-
-            <div className="form-footer">
-              {paraclinicStep > 1 ? (
-                <button
-                  onClick={e => {
-                    e.preventDefault();
-                    if (paraclinicStep === 1) return;
-                    setParaclinicStep(paraclinicStep - 1);
-                  }}>
-                  Previous
-                </button>
-              ) : null}
-              <PrimaryButton>
-                {paraclinicStep === TOTAL_PARACLINIC_STEPS ? "Submit" : "Next"}
-              </PrimaryButton>
-            </div>
-          </form>
+          <AliceCarousel
+            items={items}
+            responsive={responsive}
+            disableDotsControls
+            disableButtonsControls
+            animationDuration={300}
+            animationType="slide"
+            ref={carouselRef}
+          />
         </div>
       </div>
     </StyledHome>

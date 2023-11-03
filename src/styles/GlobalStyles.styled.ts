@@ -1,15 +1,11 @@
 import { createGlobalStyle } from "styled-components";
 
-import { bp, media, rem, size } from "./Utilities.styled";
+import { rem, size } from "./Utilities.styled";
 
 import "@radix-ui/colors/mauve.css";
 import "@radix-ui/colors/violet.css";
 import "@radix-ui/colors/blue.css";
 import "@radix-ui/colors/green.css";
-import "@radix-ui/colors/orange.css";
-import "@radix-ui/colors/pink.css";
-import "@radix-ui/colors/brown.css";
-import "@radix-ui/colors/black-alpha.css";
 
 
 export const GlobalStyles = createGlobalStyle`
@@ -22,14 +18,10 @@ export const GlobalStyles = createGlobalStyle`
         -webkit-text-size-adjust: 100%;
 
         // CSS variables ----------------------------------------
-        --clr-primary-100: hsl(253, 100%, 61%, 0.1);
-        --clr-primary-200: hsl(253, 100%, 61%, 0.3);
-        --clr-primary-400: 	hsl(253, 100%, 61%);
-        --clr-primary-700: 	hsl(242, 98%, 16%);
-
-        --clr-accent: hsl(180, 96%, 41%);
-        --clr-rose: hsl(335, 95%, 45%);
-        --clr-yellow: hsl(44, 100%, 48%);
+        --clr-primary-100: hsl(212, 97%, 55%, 0.1);
+        --clr-primary-200: hsl(212, 97%, 55%, 0.3);
+        --clr-primary-400: 	hsl(212, 97%, 55%);
+        --clr-primary-700: 	hsl(214, 37%, 20%);
 
         --clr-white: hsl(0, 0%, 100%);
         --clr-black: hsl(0, 0%, 0%);
@@ -56,17 +48,8 @@ export const GlobalStyles = createGlobalStyle`
         --border-radius-4: 10px;
         --border-radius-5: 15px;
 
-
-        // APP-SPECIFIC CSS variables ----------------------------------------
-        --footer-height: ${rem(42)};
-        --sidebar-collapsed-width: ${rem(70)};
-        --sidebar-full-width: ${rem(230)};
-        --sidebar-width: var(--sidebar-collapsed-width);
-        --patient-navbar-height: ${rem(114)};
-
-        ${media(bp.large1)}{
-            --sidebar-width: var(--sidebar-full-width);
-        }
+        // APP RELATED VARIABLES --------------------------------------
+        --app-height: min(100%, ${rem(650)});
     }
 
     *, ::before, ::after {
@@ -139,6 +122,7 @@ export const GlobalStyles = createGlobalStyle`
         width: 100%;
         padding: 0.7em 1em;
         color: inherit;
+        background-color: hsl(180, 9%, 98%);
         border-radius: var(--border-radius-2);
         border: 1px solid var(--clr-gray-300);
         outline: none;

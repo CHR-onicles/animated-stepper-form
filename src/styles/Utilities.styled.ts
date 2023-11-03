@@ -104,3 +104,9 @@ export const revealFromBottom = keyframes`
     transform: translateY(0%) skewY(0);
 }
 `;
+
+export const spin = keyframes`
+  to {
+    transform: rotate(360deg);
+}
+`;

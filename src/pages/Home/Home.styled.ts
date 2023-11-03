@@ -2,35 +2,43 @@ import styled from "styled-components";
 
 import {
   alignItemsCenter,
+  alpha,
   bp,
+  clipBorderRadius,
   flexCenter,
   flexColumn,
   media,
   pseudo,
   rem,
   size,
+  spin,
 } from "@styles/Utilities.styled";
 
 
 export const StyledHome = styled.section`
+  position: relative;
+  ${flexCenter}
   height: 100vh;
-  background-color: var(--clr-white);
-  margin-bottom: 8rem;
+  overflow: hidden;
+
+  &::before {
+    ${pseudo}
+    width: 200vw;
+    height: 400vh;
+    background: linear-gradient(45deg, #1a81fb 0%, #3cb3fb 30%, #8d76f7 80%);
+    z-index: -1;
+    animation: ${spin} 20s linear infinite;
+  }
 
   .content {
     display: flex;
     width: min(100%, ${rem(1024)});
-    height: 100%;
+    height: var(--app-height);
     margin-inline: auto;
     box-shadow: 0px 10px 38px rgba(22, 23, 24, 0.1);
+    outline: 10px solid ${alpha("var(--clr-white)", 0.2)};
+    ${clipBorderRadius("var(--border-radius-4)")};
     /* outline: 1px solid brown; */
-
-    > :first-child {
-      flex-basis: 30%;
-    }
-    > :last-child {
-      flex-basis: 70%;
-    }
   }
 
   .left-section,
@@ -40,18 +48,18 @@ export const StyledHome = styled.section`
 
   .left-section {
     ${flexColumn}
-    background-color: var(--clr-primary-100);
-    /* background-color: color-mix(
-      in srgb,
-      var(--clr-primary-100) 50%,
-      rgb(0, 0, 0, 0)
-    ); */
-    /* background: linear-gradient(300deg, var(--clr-primary-100) 15%, rgb(0,0,0,0)); */
+    width: ${rem(280)};
+    background-color: hsl(217, 32%, 30%);
+
+    ${media(bp.medium)} {
+      width: ${rem(320)};
+    }
 
     .logo {
+      background-color: var(--clr-white);
       ${flexCenter}
-      padding-block: 0.75rem;
-      width: 40%;
+      padding: 0.75rem 1rem;
+      width: 50%;
       margin: -4rem 0 1rem 1.5rem;
 
       ${media(bp.medium)} {
@@ -61,13 +69,13 @@ export const StyledHome = styled.section`
 
     .stepper {
       --gap: 2.5rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
 
       ${flexColumn}
       align-self: center;
       gap: var(--gap);
       width: fit-content;
-      margin-left: -2rem;
+      margin-left: -3rem;
       /* outline: 1px solid red; */
 
       ${media(bp.medium)} {
@@ -75,37 +83,41 @@ export const StyledHome = styled.section`
       }
 
       &-item {
+        --stroke-color: var(--clr-gray-400);
+
         ${alignItemsCenter}
         gap: 0.75rem;
         text-align: left;
         line-height: 1.1;
-        color: var(--clr-gray-300);
+        color: var(--stroke-color);
         font-weight: 500;
 
         &.completed {
-          color: var(--green-11);
+          --color: var(--green-10);
+
+          color: var(--color);
 
           .icon-wrapper {
-            border-color: var(--green-10);
-            background-color: var(--green-3);
-            color: var(--green-11);
+            border-color: var(--color);
+            color: var(--color);
 
             &::before {
-              background-color: var(--green-11);
+              background-color: var(--color);
             }
           }
         }
 
         &.active {
-          color: var(--clr-primary-400);
+          --color: ${alpha("var(--clr-white)", 0.9)};
+
+          color: var(--color);
 
           .icon-wrapper {
-            background-color: var(--clr-primary-400);
-            color: var(--clr-white);
-            border-color: var(--clr-primary-400);
+            color: var(--color);
+            border-color: var(--color);
 
             &::before {
-              background-color: var(--clr-primary-400);
+              background-color: var(--color);
             }
           }
         }
@@ -118,9 +130,9 @@ export const StyledHome = styled.section`
           ${size("calc(var(--font-size) * 2.4)")}
           font-size: var(--font-size);
           border-radius: 50%;
-          border: 2px solid var(--clr-gray-300);
+          border: 2px solid var(--stroke-color);
           z-index: 2;
-          background-color: var(--clr-white);
+          /* background-color: var(--clr-white); */
 
           &::before {
             ${pseudo}
@@ -129,7 +141,7 @@ export const StyledHome = styled.section`
             transform: translateX(-50%);
             height: calc(var(--gap) - 1rem);
             width: 2px;
-            background-color: var(--clr-gray-300);
+            background-color: var(--stroke-color);
             border-radius: 100vmax;
           }
 
@@ -147,43 +159,28 @@ export const StyledHome = styled.section`
         }
       }
     }
-
-    .start-over-btn {
-      ${alignItemsCenter}
-      gap: 0.5rem;
-      margin: auto 0 4rem 1.8rem;
-      font-weight: 500;
-      font-size: ${rem(14)};
-      transition: color 0.1s;
-
-      ${media(bp.medium)} {
-        margin: auto 0 4rem 3rem;
-      }
-
-      &:hover {
-        color: var(--clr-primary-400);
-      }
-    }
   }
 
   .right-section {
-    background-color: var(--clr-white);
+    background-color: hsl(180, 9%, 98%);
     padding-left: 2.5rem;
+    width: ${rem(500)};
+    /* outline: 1px solid red; */
 
     ${media(bp.medium)} {
       padding-left: 5rem;
+      width: ${rem(724)};
     }
 
     .form {
       ${flexColumn}
       gap: 1rem;
-      width: min(100%, ${rem(400)});
-      height: ${rem(350)};
+      width: min(90%, ${rem(400)});
+      /* height: ${rem(350)}; */
       transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-      /* outline: 1px solid red; */
 
       ${media(bp.medium)} {
-        width: min(100%, ${rem(430)});
+        width: min(90%, ${rem(450)});
       }
 
       &-step-counter {
@@ -221,7 +218,6 @@ export const StyledHome = styled.section`
         ${flexColumn}
       }
 
-      &-field-wrapper,
       &-field {
         &.half {
           ${media(bp.medium)} {
@@ -253,6 +249,19 @@ export const StyledHome = styled.section`
             color: var(--clr-primary-400);
           }
         }
+      }
+    }
+  }
+
+  .alice-carousel {
+    &__stage-item {
+      padding-left: 1.5rem;
+      height: 85vh; // This is needed in order not to cut off the datepicker
+      /* overflow-y: unset; */
+      /* outline: 1px solid red; */
+
+      &:first-child {
+        padding-left: 1rem;
       }
     }
   }
