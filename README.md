@@ -44,7 +44,7 @@ I did try doing everything myself, but faced issues around updating the form sta
  <details>
   <summary>Cons?</summary>
 
-- Some carousels like Alice behave unpredictably sometimes. So maybe don't use Alice.
+- Alice behaves a little unpredictably sometimes.
 </details>
 
  <details>
@@ -53,3 +53,7 @@ I did try doing everything myself, but faced issues around updating the form sta
 <b>Abso-fruitly!</b>
 
 </details>
+
+&nbsp;
+
+Compare against Swiper carousel [here](https://github.com/CHR-onicles/animated-stepper-form/tree/18-swiper-carousel#faqs-for-future-me)

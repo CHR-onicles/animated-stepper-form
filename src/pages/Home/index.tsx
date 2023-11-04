@@ -21,6 +21,12 @@ const responsive = {
 
 const TOTAL_STEPS = steps.length;
 
+// Function to prevent users from tabbing into another step without finishing
+// the current step
+const getTabIndex = (currentStep: number, validStep: number) => {
+  return currentStep === validStep ? 0 : -1;
+};
+
 export const Home = () => {
   const [dob, setDob] = useState<Date>();
   const [step, setStep] = useState(1);
@@ -67,6 +73,7 @@ export const Home = () => {
               id="fullName"
               value={formData.fullName ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 1)}
             />
           </div>
 
@@ -81,6 +88,7 @@ export const Home = () => {
               placeholder="Select a date"
               showYearDropdown
               required
+              tabIndex={getTabIndex(step, 1)}
             />
           </div>
 
@@ -96,12 +104,13 @@ export const Home = () => {
               value={formData.email ?? ""}
               onChange={handleOnChange}
               required
+              tabIndex={getTabIndex(step, 1)}
             />
           </div>
         </div>
       </div>
       <div className="form-footer">
-        <PrimaryButton>Next</PrimaryButton>
+        <PrimaryButton tabIndex={getTabIndex(step, 1)}>Next</PrimaryButton>
       </div>
     </form>,
     <form className="form" onSubmit={handleFormSubmit} key={2}>
@@ -117,6 +126,7 @@ export const Home = () => {
               name="country"
               value={formData.country ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 2)}
             />
           </div>
 
@@ -129,6 +139,7 @@ export const Home = () => {
               name="state"
               value={formData.state ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 2)}
             />
           </div>
 
@@ -141,6 +152,7 @@ export const Home = () => {
               name="city"
               value={formData.city ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 2)}
             />
           </div>
 
@@ -153,6 +165,7 @@ export const Home = () => {
               name="postal"
               value={formData.postal ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 2)}
             />
           </div>
         </div>
@@ -160,13 +173,14 @@ export const Home = () => {
       <div className="form-footer">
         <button
           type="button"
+          tabIndex={getTabIndex(step, 2)}
           onClick={() => {
             carouselRef?.current?.slidePrev();
             setStep(step - 1);
           }}>
           Previous
         </button>
-        <PrimaryButton>Next</PrimaryButton>
+        <PrimaryButton tabIndex={getTabIndex(step, 2)}>Next</PrimaryButton>
       </div>
     </form>,
     <form className="form" onSubmit={handleFormSubmit} key={3}>
@@ -182,6 +196,7 @@ export const Home = () => {
               name="occupation"
               value={formData.occupation ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 3)}
             />
           </div>
 
@@ -194,6 +209,7 @@ export const Home = () => {
               name="company"
               value={formData.company ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 3)}
             />
           </div>
 
@@ -206,6 +222,7 @@ export const Home = () => {
               name="industry"
               value={formData.industry ?? ""}
               onChange={handleOnChange}
+              tabIndex={getTabIndex(step, 3)}
             />
           </div>
         </div>
@@ -213,13 +230,14 @@ export const Home = () => {
       <div className="form-footer">
         <button
           type="button"
+          tabIndex={getTabIndex(step, 3)}
           onClick={() => {
             carouselRef.current?.slidePrev();
             setStep(step - 1);
           }}>
           Previous
         </button>
-        <PrimaryButton>Submit</PrimaryButton>
+        <PrimaryButton tabIndex={getTabIndex(step, 3)}>Submit</PrimaryButton>
       </div>
     </form>,
   ];
