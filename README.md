@@ -25,12 +25,12 @@ Experimenting with an animated stepper form using a carousel.
 
 &nbsp;
 
-## FAQs (for future me)
+## FAQs <sub><sup><sub><sup><sub>(for future me)</sub></sup></sub></sup></sub>
 
  <details>
   <summary>Why use a carousel?</summary>
 
-I did try doing everything myself, but faced issues around updating the form state and the custom animation simultaneously. Too much time was being wasted there and I thought I could easily bypass that whole shenanigan by utilizing a carousel.
+I did try doing everything myself, but faced issues around updating the form state and the custom animation simultaneously. Too much time was being spent there and I thought I could easily bypass that whole shenanigan by utilizing a carousel.
 
 </details>
  <details>
