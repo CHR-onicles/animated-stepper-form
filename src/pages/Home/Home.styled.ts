@@ -233,17 +233,4 @@ export const StyledHome = styled.section`
       }
     }
   }
-
-  .alice-carousel {
-    &__stage-item {
-      padding-left: 1.5rem;
-      height: 85vh; // This is needed in order not to cut off the datepicker
-      /* overflow-y: unset; */
-      /* outline: 1px solid red; */
-
-      &:first-child {
-        padding-left: 1rem;
-      }
-    }
-  }
 `;

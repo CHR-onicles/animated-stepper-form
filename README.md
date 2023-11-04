@@ -21,35 +21,35 @@ Experimenting with an animated stepper form using a carousel.
 - React
 - Typescript
 - Styled Components
-- Alice carousel
+- Swiper
 
 &nbsp;
 
-## FAQs (for future me)
+## FAQs <sub><sup><sub><sup><sub>(for future me)</sub></sup></sub></sup></sub>
 
  <details>
   <summary>Why use a carousel?</summary>
 
-I did try doing everything myself, but faced issues around updating the form state and the custom animation simultaneously. Too much time was being wasted there and I thought I could easily bypass that whole shenanigan by utilizing a carousel.
+I did try doing everything myself, but faced issues around updating the form state and the custom animation simultaneously. Too much time was being spent there and I thought I could easily bypass that whole shenanigan by utilizing a carousel.
 
 </details>
  <details>
-  <summary>Pros?</summary>
+  <summary>Swiper Pros?</summary>
 
-- Definitely less CSS and custom animations. Big W.
-- No need for extra logic aside basic form controls to prevent a user from moving to the next step prematurely.
+- Straightforward and intuitive.
+- Allows you to space slides evenly through props unlike Alice.
 
 </details>
 
  <details>
-  <summary>Cons?</summary>
+  <summary>Swiper Cons?</summary>
 
-- Some carousels like Alice behave unpredictably sometimes. So maybe don't use Alice.
+- Behaves similarly unpredictably sometimes just like Alice.
+- Requires more code and logic to get the same functionality as Alice. Big L.
 </details>
 
  <details>
-  <summary>Can you use this in other projects?</summary>
-
-<b>Abso-fruitly!</b>
+  <summary>Would you recommend this approach?</summary>
+  Nope. Working with Swiper in this specific use-case is too much hassle.
 
 </details>
