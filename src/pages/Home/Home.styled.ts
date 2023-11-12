@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 import {
   alignItemsCenter,
@@ -11,11 +11,35 @@ import {
   pseudo,
   rem,
   size,
-  spin,
 } from "@styles/Utilities.styled";
 
 
+const customSpin = keyframes`
+  50% {
+    --color-3: #1a81fb;
+--color-1: #3cb3fb;
+--color-2: #8d76f7;
+  }
+`;
+
 export const StyledHome = styled.section`
+  @property --color-1 {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #1a81fb;
+  }
+
+  @property --color-2 {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #3cb3fb;
+  }
+  @property --color-3 {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #8d76f7;
+  }
+
   position: relative;
   ${flexCenter}
   height: 100vh;
@@ -23,11 +47,15 @@ export const StyledHome = styled.section`
 
   &::before {
     ${pseudo}
-    width: 200vw;
-    height: 400vh;
-    background: linear-gradient(45deg, #1a81fb 0%, #3cb3fb 30%, #8d76f7 80%);
+    inset: 0;
+    background: linear-gradient(
+      45deg,
+      var(--color-1) 0%,
+      var(--color-2) 35%,
+      var(--color-3) 80%
+    );
     z-index: -1;
-    animation: ${spin} 20s linear infinite;
+    animation: ${customSpin} 15s linear infinite;
   }
 
   .content {
